@@ -77,6 +77,9 @@ def update_translatable_fields(cr):
             continue
         columns = tools.sql.table_columns(cr, table)
         if field in columns:
+            print("field: ", field, "model: ", model, "table: ", table)
+            if field == "help" and model == "ir.actions.report" and table == "ir_act_report_xml":
+                continue
             if columns[field]["udt_name"] in ["varchar", "text"]:
                 tools.sql.convert_column_translatable(cr, table, field, "jsonb")
         else:
